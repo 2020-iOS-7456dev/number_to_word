@@ -44,4 +44,32 @@ class NumberToWordTests: XCTestCase {
         let result = numberVM.convertNumberToWord(inputNumber: 9)
         XCTAssertEqual(result, "Nine", "Conversion for 9 is incorrect")
     }
+    
+    func testConversionFor1234(){
+        let result = numberVM.convertNumberToWord(inputNumber: 1234)
+        XCTAssertEqual(result, "One Thousand Two Hundred Thirty Four", "Conversion for 1234 is incorrect")
+    }
+    
+    func testConversionFor9999(){
+        let result = numberVM.convertNumberToWord(inputNumber: 9999)
+        XCTAssertEqual(result, "Nine Thousand Nine Hundred Ninety Nine", "Conversion for 9999 is incorrect")
+    }
+    
+    //MARK: Test cases for Input Number Validation
+    
+    func testEmptyInputNumberValidity(){
+           let result = numberVM.checkValidityOfInputNumbers(inputNumber: " ")
+           XCTAssertEqual(result, "Number is empty", "Conversion for empty string is incorrect")
+    }
+    
+    func testNegativeNumberValidity(){
+              let result = numberVM.checkValidityOfInputNumbers(inputNumber: "-1")
+              XCTAssertEqual(result, "Number must be grater than zero", "Conversion for -1 is incorrect")
+    }
+    
+    func testMaximumInputNumberValidity(){
+              let result = numberVM.checkValidityOfInputNumbers(inputNumber: "9999999")
+              XCTAssertEqual(result, "Number greater than 999999 is not supported", "Conversion for 9999999 is incorrect")
+    }
+    
 }
