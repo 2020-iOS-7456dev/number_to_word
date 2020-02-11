@@ -9,7 +9,7 @@
 import UIKit
 
 class ViewController: UIViewController {
-
+    
     @IBOutlet weak var inputTextField: UITextField!
     @IBOutlet weak var resultLabel: UILabel!
     
@@ -35,22 +35,15 @@ class ViewController: UIViewController {
 extension ViewController: ConverterDelegate {
     
     func failure(error: InputNumberErrors) {
+        self.resultLabel.textColor = .red
         switch error {
         case .emptyString:
-            self.resultLabel.textColor = .red
             self.resultLabel.text = "Number is empty"
-        case .negativeInput:
-            self.resultLabel.textColor = .red
-            self.resultLabel.text = "Number must be grater than zero"
-        case .invalidInput:
-            self.resultLabel.textColor = .red
-            self.resultLabel.text = "Invalid Input"
-        case .outOfRangeInput:
-            self.resultLabel.textColor = .red
-            self.resultLabel.text = "Number greater than 999999 is not supported"
+        case .invalidInputException(let message):
+            self.resultLabel.text = message
         }
     }
-
+    
     func success(word: String) {
         self.resultLabel.textColor = .black
         self.resultLabel.text = word
@@ -58,16 +51,16 @@ extension ViewController: ConverterDelegate {
 }
 
 extension ViewController:  UITextFieldDelegate {
- 
-       func textFieldShouldClear(_ textField: UITextField) -> Bool {
+    
+    func textFieldShouldClear(_ textField: UITextField) -> Bool {
         resultLabel.text = ""
-           return true
-       }
-       public func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-           textField.resignFirstResponder()
-           return true
-       }
-       
+        return true
+    }
+    public func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+    
 }
 
 

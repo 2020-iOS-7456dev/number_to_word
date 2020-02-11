@@ -72,7 +72,7 @@ class NumberViewModel: NSObject {
     func checkValidityOfInputNumbers(inputNumber: String?) -> Bool{
         // Checking if number string is null or not
         guard var number = inputNumber else {
-            delegate?.failure(error: InputNumberErrors.invalidInput)
+            delegate?.failure(error: InputNumberErrors.invalidInputException(message: "Invalid Input"))
             return false
         }
         // Remove Whitespaces and check if number is empty
@@ -83,16 +83,16 @@ class NumberViewModel: NSObject {
         }
         // Convert input string number to Integer
         guard let intNumber = Int(number) else {
-            delegate?.failure(error: InputNumberErrors.invalidInput)
+            delegate?.failure(error: InputNumberErrors.invalidInputException(message: "Invalid Input"))
             return false
         }
         // Chgeck if number is greater than 0
         if (intNumber < 0) {
-            delegate?.failure(error: InputNumberErrors.negativeInput)
+            delegate?.failure(error: InputNumberErrors.invalidInputException(message: "Number must be grater than 0"))
             return false
         }
         if intNumber > 999999 {
-            delegate?.failure(error: InputNumberErrors.outOfRangeInput)
+            delegate?.failure(error: InputNumberErrors.invalidInputException(message: "Number greater than 999999 is not supported"))
             return false
         }
         

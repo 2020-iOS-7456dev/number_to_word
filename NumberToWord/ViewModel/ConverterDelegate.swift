@@ -10,9 +10,7 @@ import Foundation
 
 enum InputNumberErrors: Error {
     case emptyString
-    case invalidInput
-    case negativeInput
-    case outOfRangeInput
+    case invalidInputException(message: String)
 }
 
 
