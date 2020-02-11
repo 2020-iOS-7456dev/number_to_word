@@ -10,88 +10,54 @@ import Foundation
 
 class NumberViewModel: NSObject {
     
-    private let digits = ["Zero", "One", "Two", "Three", "Four", "Five",  "Six", "Seven", "Eight", "Nine"]
-    
-    let twoDigits = ["", "Ten", "Eleven", "Twelve",
-                     "Thirteen", "Fourteen",
-                     "Fifteen", "Sixteen", "Seventeen",
-                     "Eighteen", "Nineteen"]
-    
-    let tenMultiple = ["", "", "Twenty", "Thirty", "Forty",
-                       "Fifty","Sixty", "Seventy",
-                       "Eighty", "Ninety"]
-    
-    let tenPower = ["Hundred", "Thousand"]
+     private let digits = [ "Zero", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten", "Eleven", "Twelve", "Thirteen", "Fourteen", "Fifteen", "Sixteen", "Seventeen", "Eighteen", "Nineteen" ]
+          
+    private let tenMultiple = ["", "", "Twenty", "Thirty", "Forty", "Fifty", "Sixty", "Seventy", "Eighty", "Ninety"]
     
     func convertNumberToWord(inputNumber: Int) -> String
     {
-        let number = "\(inputNumber)"
         
-        if (inputNumber < 0) {
-            return "Number must be grater than zero"
-        }
-        // Converting number string to array of integer
-        let digitsArray = number.compactMap{ $0.wholeNumberValue }
-        
-        var numberCount = digitsArray.count
-        if numberCount == 1 {
+        if (inputNumber < 20) {
             return digits[inputNumber]
         }
-        
-        var x = 0
-        var result = ""
-        while x < digitsArray.count {
-            
-            if numberCount >= 3 {
-                if numberCount <= 4 {
-                    if digitsArray[x] != 0 {
-                        result = result+digits[digitsArray[x]] + " "
-                        result = result+tenPower[numberCount-3]+" "
-                    }
-                    numberCount -= 1
-                }else {
-                    // Number is greater than 4 digit
-                    return "Under Process"
-                }
-            }else{
-                /* Need to handle 10-19. Sum of the two digits
-                 is used as index of "two_digits" array of strings */
-                
-                if (digitsArray[x] == 1)
-                {
-                    let sum = digitsArray[x] +
-                        digitsArray[x+1]
-                    result = result+twoDigits[sum] + " "
-                    return result
-                }
-                /* Need to explicitely handle 20 */
-                else if (digitsArray[x] == 2 &&
-                    digitsArray[x+1] == 0)
-                {
-                    result = result+"Twenty"
-                    return result
-                }
-                    /* Rest of the two digit
-                     numbers i.e., 21 to 99 */
-                else
-                {
-                    let i = (digitsArray[x])
-                    if(i > 0){
-                        result = result+tenMultiple[i]+" "
-                    }else{
-                        result = result+" "
-                    }
-                    x += 1
-                    
-                    if (digitsArray[x] != 0){
-                        result = result+digits[digitsArray[x]];
-                    }
-                }
+        else if (inputNumber < 100) {
+            var result = tenMultiple[inputNumber/10]
+            if (inputNumber%10 != 0) {
+                result = result+" "
             }
-            x += 1
+            result = result+digits[inputNumber%10]
+            return result
         }
-        return result
+        else if (inputNumber < 1000) {
+            var result = digits[inputNumber/100]
+            result = result+" Hundred"
+            if (inputNumber%100 != 0) {
+                result = result+" "
+            }
+            result = result+convertNumberToWord(inputNumber: inputNumber % 100)
+            return result
+            
+        }
+        else if (inputNumber < 100000) {
+            var result = convertNumberToWord(inputNumber: inputNumber / 1000)
+            result = result+" Thousand"
+            if (inputNumber%1000 != 0) {
+                result = result+" "
+            }
+            result = result+convertNumberToWord(inputNumber: inputNumber % 1000)
+            return result
+            
+        }else {
+            var result = convertNumberToWord(inputNumber: inputNumber / 100000)
+            result = result+" Lakh"
+            if (inputNumber % 100000 != 0){
+                result = result+" "
+            }
+            result = result+convertNumberToWord(inputNumber: inputNumber % 100000)
+            return result
+        }
     }
+    
     
     func checkValidityOfInputNumbers(inputNumber: String?) -> String{
         
@@ -119,6 +85,7 @@ class NumberViewModel: NSObject {
             return "Number must be grater than zero"
             
         }
+        // Checking if number is less than 999999
         if intNumber > 999999 {
             return "Number greater than 999999 is not supported"
             

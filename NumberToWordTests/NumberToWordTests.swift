@@ -55,6 +55,11 @@ class NumberToWordTests: XCTestCase {
         XCTAssertEqual(result, "Nine Thousand Nine Hundred Ninety Nine", "Conversion for 9999 is incorrect")
     }
     
+    func testConversionFor999999(){
+        let result = numberVM.convertNumberToWord(inputNumber: 999999)
+        XCTAssertEqual(result, "Nine Lakh Ninety Nine Thousand Nine Hundred Ninety Nine", "Conversion for 999999 is incorrect")
+    }
+    
     //MARK: Test cases for Input Number Validation
     
     func testEmptyInputNumberValidity(){
@@ -72,4 +77,13 @@ class NumberToWordTests: XCTestCase {
               XCTAssertEqual(result, "Number greater than 999999 is not supported", "Conversion for 9999999 is incorrect")
     }
     
+    func testAlphaNumericInputNumberValidity(){
+           let result = numberVM.checkValidityOfInputNumbers(inputNumber: "RK088")
+           XCTAssertEqual(result, "Invalid Input", "Conversion for alpha-numeric string is incorrect")
+    }
+    
+    func testFloatInputNumberValidity(){
+           let result = numberVM.checkValidityOfInputNumbers(inputNumber: "21.88")
+           XCTAssertEqual(result, "Invalid Input", "Conversion for 21.88 is incorrect")
+    }
 }
