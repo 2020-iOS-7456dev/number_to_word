@@ -10,13 +10,20 @@ import Foundation
 
 class NumberViewModel: NSObject {
     
-     private let digits = [ "Zero", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten", "Eleven", "Twelve", "Thirteen", "Fourteen", "Fifteen", "Sixteen", "Seventeen", "Eighteen", "Nineteen" ]
-          
+    var delegate: ConverterDelegate?
+    
+    private let digits = ["Zero", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten", "Eleven", "Twelve", "Thirteen", "Fourteen", "Fifteen", "Sixteen", "Seventeen", "Eighteen", "Nineteen"]
+    
     private let tenMultiple = ["", "", "Twenty", "Thirty", "Forty", "Fifty", "Sixty", "Seventy", "Eighty", "Ninety"]
+    
+    
+    func converter(inputNumber: String?){
+        
+        checkValidityOfInputNumbers(inputNumber: inputNumber)
+    }
     
     func convertNumberToWord(inputNumber: Int) -> String
     {
-        
         if (inputNumber < 20) {
             return digits[inputNumber]
         }
@@ -58,39 +65,32 @@ class NumberViewModel: NSObject {
         }
     }
     
-    
-    func checkValidityOfInputNumbers(inputNumber: String?) -> String{
-        
+    func checkValidityOfInputNumbers(inputNumber: String?){
         // Checking if number string is null or not
         guard var number = inputNumber else {
-            return "Invalid Input"
-            
-            
+            delegate?.failure(error: InputNumberErrors.invalidInput)
+            return
         }
         // Remove Whitespaces and check if number is empty
         number = number.trimmingCharacters(in: .whitespacesAndNewlines)
         if number.count == 0 {
-            return "Number is empty"
-            
+            delegate?.failure(error: InputNumberErrors.emptyString)
+            return
         }
-        
         // Convert input string number to Integer
         guard let intNumber = Int(number) else {
-            return "Invalid Input"
-            
+            delegate?.failure(error: InputNumberErrors.invalidInput)
+            return
         }
-        
         // Chgeck if number is greater than 0
         if (intNumber < 0) {
-            return "Number must be grater than zero"
-            
+            delegate?.failure(error: InputNumberErrors.negativeInput)
+            return
         }
-        // Checking if number is less than 999999
         if intNumber > 999999 {
-            return "Number greater than 999999 is not supported"
-            
+            delegate?.failure(error: InputNumberErrors.outOfRangeInput)
+            return
         }
-        return "Number is valid"
-        
+        delegate?.success(word: convertNumberToWord(inputNumber: intNumber))
     }
 }
