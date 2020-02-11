@@ -10,4 +10,9 @@ import Foundation
 
 class NumberViewModel: NSObject {
     
+    func convertNumberToWord(inputNumber: Int) -> String
+    {
+        
+        return ""
+    }
 }
