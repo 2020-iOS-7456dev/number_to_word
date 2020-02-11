@@ -10,9 +10,23 @@ import Foundation
 
 class NumberViewModel: NSObject {
     
+    
     func convertNumberToWord(inputNumber: Int) -> String
     {
         
+        if inputNumber == 1 {
         return "One"
+        }
+        if inputNumber == 2 {
+        return "Two"
+        }
+        if inputNumber == 3 {
+        return "Three"
+        }
+        if inputNumber == 4 {
+        return "Four"
+        }
+        
+        return "Invalid number"
     }
 }

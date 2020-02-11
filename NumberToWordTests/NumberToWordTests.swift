@@ -25,6 +25,23 @@ class NumberToWordTests: XCTestCase {
         XCTAssertEqual(result, "One", "Conversion for 1 is incorrect")
     }
    
+    func testConversionForTwo(){
+        let result = numberVM.convertNumberToWord(inputNumber: 2)
+        XCTAssertEqual(result, "Two", "Conversion for 2 is incorrect")
+    }
     
-
+     func testConversionForThree(){
+         let result = numberVM.convertNumberToWord(inputNumber: 3)
+         XCTAssertEqual(result, "Three", "Conversion for 3 is incorrect")
+     }
+    
+     func testConversionForFour(){
+         let result = numberVM.convertNumberToWord(inputNumber: 4)
+         XCTAssertEqual(result, "Four", "Conversion for 4 is incorrect")
+     }
+    
+    func testConversionForNine(){
+        let result = numberVM.convertNumberToWord(inputNumber: 9)
+        XCTAssertEqual(result, "Nine", "Conversion for 9 is incorrect")
+    }
 }
