@@ -19,6 +19,7 @@
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter Number" textAlignment="natural" clearsOnBeginEditing="YES" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="5BO-YW-dYs">
                                 <rect key="frame" x="114" y="208.5" width="186" height="40"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <accessibility key="accessibilityConfiguration" identifier="InputText"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="HCM-GR-R5w"/>
                                     <constraint firstAttribute="width" constant="186" id="YvD-q3-uLv"/>

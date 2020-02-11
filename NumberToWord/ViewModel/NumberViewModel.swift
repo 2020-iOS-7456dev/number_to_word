@@ -19,7 +19,11 @@ class NumberViewModel: NSObject {
     
     func converter(inputNumber: String?){
         
-        checkValidityOfInputNumbers(inputNumber: inputNumber)
+        if checkValidityOfInputNumbers(inputNumber: inputNumber) {
+            
+            delegate?.success(word: convertNumberToWord(inputNumber: Int(inputNumber!)!))
+        }
+        
     }
     
     func convertNumberToWord(inputNumber: Int) -> String
@@ -65,32 +69,33 @@ class NumberViewModel: NSObject {
         }
     }
     
-    func checkValidityOfInputNumbers(inputNumber: String?){
+    func checkValidityOfInputNumbers(inputNumber: String?) -> Bool{
         // Checking if number string is null or not
         guard var number = inputNumber else {
             delegate?.failure(error: InputNumberErrors.invalidInput)
-            return
+            return false
         }
         // Remove Whitespaces and check if number is empty
         number = number.trimmingCharacters(in: .whitespacesAndNewlines)
         if number.count == 0 {
             delegate?.failure(error: InputNumberErrors.emptyString)
-            return
+            return false
         }
         // Convert input string number to Integer
         guard let intNumber = Int(number) else {
             delegate?.failure(error: InputNumberErrors.invalidInput)
-            return
+            return false
         }
         // Chgeck if number is greater than 0
         if (intNumber < 0) {
             delegate?.failure(error: InputNumberErrors.negativeInput)
-            return
+            return false
         }
         if intNumber > 999999 {
             delegate?.failure(error: InputNumberErrors.outOfRangeInput)
-            return
+            return false
         }
-        delegate?.success(word: convertNumberToWord(inputNumber: intNumber))
+        
+        return true
     }
 }

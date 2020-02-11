@@ -62,28 +62,29 @@ class NumberToWordTests: XCTestCase {
     
     //MARK: Test cases for Input Number Validation
     
-    func testEmptyInputNumberValidity(){
+   func testEmptyInputNumberValidity(){
            let result = numberVM.checkValidityOfInputNumbers(inputNumber: " ")
-           XCTAssertEqual(result, "Number is empty", "Conversion for empty string is incorrect")
+           XCTAssertEqual(result, false, "Conversion for empty string is incorrect")
     }
     
     func testNegativeNumberValidity(){
               let result = numberVM.checkValidityOfInputNumbers(inputNumber: "-1")
-              XCTAssertEqual(result, "Number must be grater than zero", "Conversion for -1 is incorrect")
+              XCTAssertEqual(result, false, "Conversion for -1 is incorrect")
     }
     
     func testMaximumInputNumberValidity(){
               let result = numberVM.checkValidityOfInputNumbers(inputNumber: "9999999")
-              XCTAssertEqual(result, "Number greater than 999999 is not supported", "Conversion for 9999999 is incorrect")
+              XCTAssertEqual(result, false, "Conversion for 9999999 is incorrect")
     }
     
     func testAlphaNumericInputNumberValidity(){
            let result = numberVM.checkValidityOfInputNumbers(inputNumber: "RK088")
-           XCTAssertEqual(result, "Invalid Input", "Conversion for alpha-numeric string is incorrect")
+           XCTAssertEqual(result, false, "Conversion for alpha-numeric string is incorrect")
     }
     
     func testFloatInputNumberValidity(){
            let result = numberVM.checkValidityOfInputNumbers(inputNumber: "21.88")
-           XCTAssertEqual(result, "Invalid Input", "Conversion for 21.88 is incorrect")
+           XCTAssertEqual(result, false, "Conversion for 21.88 is incorrect")
     }
+ 
 }
