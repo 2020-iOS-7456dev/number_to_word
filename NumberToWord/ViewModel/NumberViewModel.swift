@@ -13,6 +13,6 @@ class NumberViewModel: NSObject {
     func convertNumberToWord(inputNumber: Int) -> String
     {
         
-        return ""
+        return "One"
     }
 }
