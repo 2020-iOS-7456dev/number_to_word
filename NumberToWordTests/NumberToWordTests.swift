@@ -45,6 +45,11 @@ class NumberToWordTests: XCTestCase {
         XCTAssertEqual(result, "Nine", "Conversion for 9 is incorrect")
     }
     
+    func testConversionForSevenThousand(){
+        let result = numberVM.convertNumberToWord(inputNumber: 7000)
+        XCTAssertEqual(result, "Seven Thousand", "Conversion for 7000 is incorrect")
+    }
+    
     func testConversionFor1234(){
         let result = numberVM.convertNumberToWord(inputNumber: 1234)
         XCTAssertEqual(result, "One Thousand Two Hundred Thirty Four", "Conversion for 1234 is incorrect")

@@ -21,7 +21,7 @@ class NumberViewModel: NSObject {
         
         if checkValidityOfInputNumbers(inputNumber: inputNumber) {
             
-            delegate?.success(word: convertNumberToWord(inputNumber: Int(inputNumber!)!))
+            delegate?.success(word: convertNumberToWord(inputNumber: Int(inputNumber!.trimmingCharacters(in: .whitespacesAndNewlines))!))
         }
         
     }
@@ -33,38 +33,38 @@ class NumberViewModel: NSObject {
         }
         else if (inputNumber < 100) {
             var result = tenMultiple[inputNumber/10]
-            if (inputNumber%10 != 0) {
-                result = result+" "
+            if (inputNumber%10 == 0) {
+                return result
             }
-            result = result+digits[inputNumber%10]
+            result = result+" "+digits[inputNumber%10]
             return result
         }
         else if (inputNumber < 1000) {
             var result = digits[inputNumber/100]
             result = result+" Hundred"
-            if (inputNumber%100 != 0) {
-                result = result+" "
+            if (inputNumber%100 == 0) {
+                return result
             }
-            result = result+convertNumberToWord(inputNumber: inputNumber % 100)
+            result = result+" "+convertNumberToWord(inputNumber: inputNumber % 100)
             return result
             
         }
         else if (inputNumber < 100000) {
             var result = convertNumberToWord(inputNumber: inputNumber / 1000)
             result = result+" Thousand"
-            if (inputNumber%1000 != 0) {
-                result = result+" "
+            if (inputNumber%1000 == 0) {
+               return result
             }
-            result = result+convertNumberToWord(inputNumber: inputNumber % 1000)
+            result = result+" "+convertNumberToWord(inputNumber: inputNumber % 1000)
             return result
             
         }else {
             var result = convertNumberToWord(inputNumber: inputNumber / 100000)
             result = result+" Lakh"
-            if (inputNumber % 100000 != 0){
-                result = result+" "
+            if (inputNumber % 100000 == 0){
+               return result
             }
-            result = result+convertNumberToWord(inputNumber: inputNumber % 100000)
+            result = result+" "+convertNumberToWord(inputNumber: inputNumber % 100000)
             return result
         }
     }
