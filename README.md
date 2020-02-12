@@ -3,7 +3,8 @@
 ## Compatibility
 
 > This project is written in Swift 5.0  and Requires Xcode 11.3 to build and run
->iOS 11 and above
+
+> iOS 11 and above
 
 
 ## Steps To Run Application
